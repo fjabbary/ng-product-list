@@ -1,9 +1,29 @@
-<div *ngFor="let product of products">
-    <mat-card class="product-card">
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-            <mat-card-title>{{product.name}}</mat-card-title>
-            <mat-card-subtitle><strong>Price: </strong>{{product.price | currency}}</mat-card-subtitle>
-        </mat-card-content>
-    </mat-card>
+<div class="container">
+    <h2>Our latest collection</h2>
+
+    <mat-form-field>
+        <input matInput placeholder="Search" (keyup)="searchProduct($event)">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Select</mat-label>
+        <mat-select (selectionChange)="sort($event.value)">
+            <mat-option value="asc-name">A-Z (a-z)</mat-option>
+            <mat-option value="desc-name">Z-A (z-a)</mat-option>
+            <mat-option value="asc-price">Low to High</mat-option>
+            <mat-option value="desc-price">High to Low</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div fxLayout="row wrap" fxLayoutGap="40px grid" fxLayoutAlign="center">
+        <div *ngFor="let product of filteredProducts">
+            <mat-card class="product-card" (click)="addToCart(product)">
+                <img mat-card-image src="assets/images/{{product.image_url}}">
+                <mat-card-content>
+                    <mat-card-title>{{product.name}}</mat-card-title>
+                    <mat-card-subtitle><strong>Price: </strong>{{product.price | currency}}</mat-card-subtitle>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>
